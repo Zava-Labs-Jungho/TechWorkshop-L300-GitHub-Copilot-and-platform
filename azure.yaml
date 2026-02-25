@@ -1,0 +1,6 @@
+name: zava-storefront
+services:
+  web:
+    project: ./src
+    host: appservice
+    language: dotnet
