@@ -75,6 +75,17 @@ module aiFoundry 'modules/ai-foundry.bicep' = {
   }
 }
 
+// Key Vault for Application Secrets (stores Phi-4 API key)
+module keyvault 'modules/keyvault.bicep' = {
+  scope: rg
+  params: {
+    location: location
+    resourceToken: resourceToken
+    managedIdentityPrincipalId: identity.outputs.managedIdentityPrincipalId
+    aiProjectName: aiFoundry.outputs.aiFoundryProjectName
+  }
+}
+
 // App Service — Plan + Web App (Linux Docker container)
 module appservice 'modules/appservice.bicep' = {
   scope: rg
@@ -87,6 +98,9 @@ module appservice 'modules/appservice.bicep' = {
     appInsightsConnectionString: monitoring.outputs.appInsightsConnectionString
     openAiEndpoint: aiFoundry.outputs.openAiEndpoint
     aiProjectName: aiFoundry.outputs.aiFoundryProjectName
+    keyVaultUri: keyvault.outputs.keyVaultUri
+    phi4SecretName: keyvault.outputs.phi4SecretName
+    phi4Endpoint: aiFoundry.outputs.phi4EndpointUri
   }
 }
 
@@ -111,3 +125,5 @@ output AZURE_CONTAINER_REGISTRY_NAME string = acr.outputs.acrName
 output WEB_APP_URL string = appservice.outputs.webAppUrl
 output AZURE_OPENAI_ENDPOINT string = aiFoundry.outputs.openAiEndpoint
 output AI_FOUNDRY_PROJECT_NAME string = aiFoundry.outputs.aiFoundryProjectName
+output KEY_VAULT_URI string = keyvault.outputs.keyVaultUri
+output PHI4_ENDPOINT string = aiFoundry.outputs.phi4EndpointUri

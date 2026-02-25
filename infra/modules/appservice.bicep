@@ -22,6 +22,15 @@ param openAiEndpoint string
 @description('AI Foundry Project name.')
 param aiProjectName string
 
+@description('Key Vault URI for application secrets.')
+param keyVaultUri string
+
+@description('Name of the Phi-4 API key secret in Key Vault.')
+param phi4SecretName string
+
+@description('Phi-4 serverless endpoint URL.')
+param phi4Endpoint string
+
 resource appServicePlan 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: 'azasp${resourceToken}'
   location: location
@@ -76,6 +85,18 @@ resource webApp 'Microsoft.Web/sites@2023-12-01' = {
         {
           name: 'AZURE_AI_PROJECT_NAME'
           value: aiProjectName
+        }
+        {
+          name: 'KeyVault__Uri'
+          value: keyVaultUri
+        }
+        {
+          name: 'KeyVault__Phi4SecretName'
+          value: phi4SecretName
+        }
+        {
+          name: 'Phi4__Endpoint'
+          value: phi4Endpoint
         }
         {
           name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE'
