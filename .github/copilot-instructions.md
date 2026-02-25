@@ -16,7 +16,7 @@ Jekyll site using the **just-the-docs** theme. Content lives in `docs/` as numbe
 
 ### Zava Storefront application (`src/`)
 
-ASP.NET Core MVC app targeting **.NET 6**. No database — product data is hardcoded in `ProductService` and cart state uses ASP.NET session (in-memory, 30-minute timeout).
+ASP.NET Core MVC app targeting **.NET 8**. No database — product data is hardcoded in `ProductService` and cart state uses ASP.NET session (in-memory, 30-minute timeout).
 
 - **Controllers**: `HomeController` (product listing, add-to-cart), `CartController` (cart CRUD, checkout).
 - **Services**: `ProductService` (singleton, static product catalog), `CartService` (scoped, session-based cart via `IHttpContextAccessor`).
