@@ -162,3 +162,4 @@ output openAiAccountName string = openAiAccount.name
 output openAiEndpoint string = openAiAccount.properties.endpoint
 output aiFoundryHubName string = aiHub.name
 output aiFoundryProjectName string = aiProject.name
+output phi4EndpointUri string = phi4Endpoint.properties.inferenceEndpoint.uri
